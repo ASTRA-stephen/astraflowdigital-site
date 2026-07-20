@@ -1,0 +1,150 @@
+{
+  "nav": {
+    "brand": "AstraFlow",
+    "brandAccent": "Digital",
+    "links": [
+      { "label": "Services", "href": "#services" },
+      { "label": "Why Us", "href": "#why-us" },
+      { "label": "Process", "href": "#process" },
+      { "label": "Packages", "href": "#packages" },
+      { "label": "Contact", "href": "#contact" }
+    ]
+  },
+  "hero": {
+    "headline": [
+      { "text": "Automate.", "gradient": true },
+      { "text": "Integrate." },
+      { "text": "Innovate.", "gradient": true }
+    ],
+    "paragraph": "Stop doing everything manually. AstraFlow Digital builds secure cloud environments, connected workflows, and scalable digital systems so your team can focus on growing the business.",
+    "actions": [
+      { "label": "Explore Packages", "href": "#packages", "style": "primary" },
+      { "label": "View Solutions", "href": "#services", "style": "secondary" }
+    ],
+    "trust": [
+      { "title": "Cloud Powered", "detail": "Azure + Microsoft 365" },
+      { "title": "Secure by Design", "detail": "Enterprise-grade controls" },
+      { "title": "Built to Scale", "detail": "Systems that grow with you" }
+    ],
+    "chips": [
+      { "icon": "cloud", "x": 10, "y": 8 },
+      { "icon": "git-branch", "x": 4, "y": 27 },
+      { "icon": "mail", "x": 6, "y": 47 },
+      { "icon": "file-text", "x": 4, "y": 67 },
+      { "icon": "bar-chart-3", "x": 10, "y": 86 }
+    ]
+  },
+  "stats": {
+    "kicker": "Work smarter, not harder",
+    "heading": "Manual processes waste time and money",
+    "paragraph": "We automate repetitive tasks so your team can focus on what actually grows the business.",
+    "items": [
+      { "icon": "clock", "title": "Save Time", "detail": "Automate repetitive tasks and eliminate bottlenecks." },
+      { "icon": "dollar-sign", "title": "Reduce Costs", "detail": "Improve efficiency and lower operational costs." },
+      { "icon": "trending-up", "title": "Boost Productivity", "detail": "Empower your team to focus on what matters most." },
+      { "icon": "shield-check", "title": "Stay Secure", "detail": "Enterprise-grade security built into everything we do." }
+    ]
+  },
+  "services": {
+    "kicker": "What we build",
+    "heading": "One connected digital ecosystem",
+    "paragraph": "From your Microsoft 365 foundation to custom automation and business applications, every solution is designed to work together.",
+    "items": [
+      { "icon": "workflow", "title": "Workflow Automation", "detail": "Eliminate repetitive tasks, approvals, and file routing to save hours every week." },
+      { "icon": "layout-grid", "title": "Microsoft 365", "detail": "Maximize collaboration, productivity, and efficiency across your whole team." },
+      { "icon": "cloud", "title": "Cloud Solutions", "detail": "Secure, scalable Azure infrastructure built around your business." },
+      { "icon": "brain-circuit", "title": "AI-Powered Solutions", "detail": "Smart automation and insights that help you make better decisions." },
+      { "icon": "code-2", "title": "Web & Software", "detail": "Modern websites, client portals, dashboards, and custom API integrations." },
+      { "icon": "shield-check", "title": "Secure & Reliable", "detail": "Enterprise-grade security and permissions you can trust." }
+    ]
+  },
+  "comparison": {
+    "kicker": "Before & after",
+    "heading": "We automate. You elevate.",
+    "before": {
+      "label": "Before AstraFlow",
+      "items": [
+        { "icon": "layers", "title": "Manual Paperwork", "detail": "Time-consuming tasks and endless data entry." },
+        { "icon": "mail-warning", "title": "Missed Emails", "detail": "Important messages get lost or overlooked." },
+        { "icon": "repeat", "title": "Repetitive Tasks", "detail": "Wasting hours on work that could be automated." },
+        { "icon": "folder-x", "title": "Disorganized Files", "detail": "Scattered documents slow down your team." }
+      ]
+    },
+    "after": {
+      "label": "After AstraFlow",
+      "items": [
+        { "icon": "workflow", "title": "Automated Workflows", "detail": "Save time and eliminate manual, repetitive work." },
+        { "icon": "bell-ring", "title": "Smart Notifications", "detail": "The right messages reach the right people." },
+        { "icon": "zap", "title": "Increased Productivity", "detail": "Your team focuses on what really drives the business." },
+        { "icon": "shield-check", "title": "Centralized & Secure", "detail": "All your files organized, accessible, and protected." }
+      ]
+    }
+  },
+  "process": {
+    "kicker": "How it works",
+    "heading": "A clear path from manual to automated",
+    "paragraph": "We learn your operation, map the right solution, build carefully, and support the system after launch.",
+    "items": [
+      { "step": "01", "title": "Discover", "detail": "Review your systems, goals, bottlenecks, users, and security needs." },
+      { "step": "02", "title": "Design", "detail": "Create a practical architecture and implementation plan around your business." },
+      { "step": "03", "title": "Build", "detail": "Configure, develop, connect, test, and document your digital solution." },
+      { "step": "04", "title": "Optimize", "detail": "Train users, monitor performance, and improve workflows as your needs grow." }
+    ]
+  },
+  "packages": {
+    "kicker": "Service packages",
+    "heading": "Start strong. Grow connected.",
+    "paragraph": "Choose the starting point that fits your current operation — every package is a baseline, not a ceiling.",
+    "items": [
+      {
+        "tag": "Starter Package",
+        "title": "Digital Foundations",
+        "detail": "For small businesses that need a modern, secure setup without unnecessary complexity.",
+        "features": [
+          "Microsoft 365 business tenant setup",
+          "Domain and DNS configuration",
+          "User accounts and permissions",
+          "Email, Teams, and SharePoint setup",
+          "Simple static website with SSL",
+          "One basic Power Automate workflow"
+        ],
+        "note": "Every package is custom — modifications and add-ons are always available as your needs change.",
+        "cta": { "label": "Ask About Starter", "href": "mailto:info@astraflowdigital.com?subject=Starter%20Package%20Inquiry" },
+        "featured": false
+      },
+      {
+        "tag": "Growth Package",
+        "title": "Cloud + Automation Buildout",
+        "detail": "For businesses ready to streamline operations, automate workflows, and build real backend systems — with room to scale as far as you need.",
+        "features": [
+          "Everything in Starter",
+          "Azure storage and secure upload pipeline",
+          "Power Automate workflows, scaled to your volume",
+          "Custom API connectors and integrations",
+          "Power Apps internal tools and dashboards",
+          "Advanced Azure architecture and Dataverse design",
+          "Role-based access, monitoring, and priority support"
+        ],
+        "note": "Every package is custom — modifications and add-ons are always available as your needs change.",
+        "cta": { "label": "Choose Growth", "href": "mailto:info@astraflowdigital.com?subject=Growth%20Package%20Inquiry" },
+        "featured": true
+      }
+    ]
+  },
+  "cta": {
+    "kicker": "Ready to modernize?",
+    "heading": "Build a digital system that works as hard as your business.",
+    "paragraph": "Tell us where your workflow is slowing down. We'll help you identify the right next step.",
+    "actions": [
+      { "label": "Start a Conversation", "href": "mailto:info@astraflowdigital.com?subject=Website%20Consultation%20Request", "style": "primary" }
+    ]
+  },
+  "footer": {
+    "tagline": "Let's automate your success.",
+    "links": [
+      { "label": "info@astraflowdigital.com", "href": "mailto:info@astraflowdigital.com" },
+      { "label": "Solutions", "href": "#services" },
+      { "label": "Packages", "href": "#packages" }
+    ]
+  }
+}

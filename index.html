@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AstraFlow Digital delivers secure cloud infrastructure, workflow automation, and custom web and software solutions." />
+  <title>AstraFlow Digital | Automate. Integrate. Innovate.</title>
+
+  <link rel="icon" type="image/png" href="afdLogo-ALogo-NoBG.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Scroll reveal animations -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <nav class="nav" id="site-nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#home" aria-label="AstraFlow Digital home">
+        <div class="brand-mark"><img src="afdLogo-ALogo-NoBG.png" alt="AstraFlow Digital logo" /></div>
+        <span id="nav-brand-text">AstraFlow<span class="accent"> Digital</span></span>
+      </a>
+
+      <div class="nav-links" id="nav-links"></div>
+
+      <div class="nav-cta">
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </div>
+    <div class="container">
+      <div class="mobile-panel" id="mobile-panel">
+        <div id="mobile-links"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <h1 class="hero-title" id="hero-title"></h1>
+          <p class="lead" id="hero-lead"></p>
+          <div class="hero-actions" id="hero-actions"></div>
+          <div class="trust-row" id="trust-row"></div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-dotgrid" aria-hidden="true"></div>
+          <div class="hero-particles" aria-hidden="true"></div>
+          <svg class="hero-connectors" id="hero-connectors" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+          <div id="hero-chips"></div>
+          <div class="orbit-ring">
+            <div class="ring-core" aria-hidden="true">
+              <div class="earth-lights" id="earth-lights"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats / Why Us -->
+    <section id="why-us">
+      <div class="container">
+        <div class="section-head center">
+          <span class="kicker" id="stats-kicker"></span>
+          <h2 id="stats-heading"></h2>
+          <p id="stats-paragraph"></p>
+        </div>
+        <div class="stats-grid" id="stats-grid"></div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+      <div class="container">
+        <div class="section-head center">
+          <span class="kicker" id="services-kicker"></span>
+          <h2 id="services-heading"></h2>
+          <p id="services-paragraph"></p>
+        </div>
+        <div class="services-grid" id="services-grid"></div>
+      </div>
+    </section>
+
+    <!-- Before / After comparison -->
+    <section id="comparison">
+      <div class="container">
+        <div class="section-head center">
+          <span class="kicker" id="comparison-kicker"></span>
+          <h2 id="comparison-heading"></h2>
+        </div>
+        <div class="comparison-grid" id="comparison-grid"></div>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section id="process">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker" id="process-kicker"></span>
+          <h2 id="process-heading"></h2>
+          <p id="process-paragraph"></p>
+        </div>
+        <div class="process-grid" id="process-grid"></div>
+      </div>
+    </section>
+
+    <!-- Packages -->
+    <section id="packages">
+      <div class="container">
+        <div class="section-head center">
+          <span class="kicker" id="packages-kicker"></span>
+          <h2 id="packages-heading"></h2>
+          <p id="packages-paragraph"></p>
+        </div>
+        <div class="packages-grid" id="packages-grid"></div>
+      </div>
+    </section>
+
+    <!-- CTA / Contact -->
+    <section id="contact">
+      <div class="container">
+        <div class="glass cta-panel">
+          <div>
+            <span class="kicker" id="cta-kicker"></span>
+            <h2 id="cta-heading"></h2>
+            <p id="cta-paragraph"></p>
+          </div>
+          <div class="cta-actions" id="cta-actions"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="afdLogo-ALogo-NoBG.png" alt="AstraFlow Digital logo" />
+          <span id="footer-brand-text">AstraFlow Digital</span>
+        </div>
+        <div class="footer-tagline" id="footer-tagline"></div>
+      </div>
+      <div class="footer-links" id="footer-links"></div>
+    </div>
+    <div class="container" style="margin-top:18px; font-size:.8rem; color:var(--muted-2);">
+      © <span id="year"></span> AstraFlow Digital. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <!-- Scroll reveal -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
