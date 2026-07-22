@@ -8,12 +8,18 @@ async function loadContent() {
   return res.json();
 }
 
-function renderNav(nav) {
+function renderNav(nav, cta) {
   const links = document.getElementById("nav-links");
   const mobileLinks = document.getElementById("mobile-links");
   const linkHtml = nav.links.map((l) => `<a href="${l.href}">${l.label}</a>`).join("");
   links.innerHTML = linkHtml;
   mobileLinks.innerHTML = linkHtml;
+
+  const mobileCta = document.getElementById("mobile-cta");
+  if (mobileCta && cta && cta.actions && cta.actions[0]) {
+    const a = cta.actions[0];
+    mobileCta.innerHTML = `<a class="btn btn-${a.style}" href="${a.href}">${a.label}</a>`;
+  }
 
   document.getElementById("nav-brand-text").innerHTML =
     `${nav.brand}<span class="accent"> ${nav.brandAccent}</span>`;
@@ -244,26 +250,34 @@ function wireNav() {
     { passive: true }
   );
 
+  function closeMobilePanel() {
+    mobilePanel.classList.remove("open");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.innerHTML = icon("menu");
+    document.body.classList.remove("mobile-nav-open");
+    lucide.createIcons();
+  }
+
   toggle.addEventListener("click", () => {
     const open = mobilePanel.classList.toggle("open");
     toggle.setAttribute("aria-expanded", String(open));
     toggle.innerHTML = open ? icon("x") : icon("menu");
+    document.body.classList.toggle("mobile-nav-open", open);
     lucide.createIcons();
   });
 
   mobilePanel.addEventListener("click", (e) => {
-    if (e.target.tagName === "A") {
-      mobilePanel.classList.remove("open");
-      toggle.setAttribute("aria-expanded", "false");
-      toggle.innerHTML = icon("menu");
-      lucide.createIcons();
-    }
+    if (e.target.tagName === "A") closeMobilePanel();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && mobilePanel.classList.contains("open")) closeMobilePanel();
   });
 }
 
 function wireActiveLinkHighlight() {
   const sections = [...document.querySelectorAll("main section[id]")];
-  const navLinks = () => [...document.querySelectorAll(".nav-links a")];
+  const navLinks = () => [...document.querySelectorAll(".nav-links a, #mobile-links a")];
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -569,7 +583,7 @@ function wireKickerDecode() {
 async function init() {
   try {
     const content = await loadContent();
-    renderNav(content.nav);
+    renderNav(content.nav, content.cta);
     renderHero(content.hero);
     renderStats(content.stats);
     renderServices(content.services);

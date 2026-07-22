@@ -44,12 +44,18 @@
         </button>
       </div>
     </div>
-    <div class="container">
-      <div class="mobile-panel" id="mobile-panel">
-        <div id="mobile-links"></div>
-      </div>
-    </div>
   </nav>
+
+  <!-- Rendered as a sibling of <nav>, not a child: <nav> has backdrop-filter,
+       which makes it the containing block for any position:fixed descendant,
+       collapsing this panel's fixed top/bottom offsets to zero height. -->
+  <div class="mobile-panel" id="mobile-panel">
+    <div class="container mobile-panel-inner">
+      <span class="kicker mobile-panel-kicker">Menu</span>
+      <div id="mobile-links"></div>
+      <div id="mobile-cta"></div>
+    </div>
+  </div>
 
   <main>
 

@@ -312,21 +312,109 @@ section { padding: 110px 0; position: relative; }
 }
 .nav-toggle svg { width: 20px; height: 20px; }
 
+/* Full-screen mobile nav overlay — sits below the sticky nav bar, solid
+   gradient background (no backdrop-filter: it's already near-opaque, and
+   blur is the one thing consistently expensive on mobile GPUs). */
 .mobile-panel {
-  display: none;
+  position: fixed;
+  top: 82px; left: 0; right: 0; bottom: 0;
+  display: flex;
+  background:
+    radial-gradient(circle at 85% 0%, rgba(124, 92, 255, 0.14), transparent 26rem),
+    linear-gradient(180deg, rgba(11, 10, 17, 0.98), var(--obsidian-3) 70%);
+  border-top: 1px solid rgba(201, 169, 98, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s linear 0.22s;
+  overflow-y: auto;
+  z-index: 101;
+}
+.mobile-panel.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s linear 0s;
+}
+.mobile-panel-inner {
+  display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 10px 0 20px;
-  border-top: 1px solid rgba(201, 169, 98, 0.12);
+  min-height: 100%;
+  padding: 32px 0 40px;
+  width: 100%;
 }
-.mobile-panel a {
-  padding: 14px 4px;
-  border-bottom: 1px solid rgba(201, 169, 98, 0.08);
-  color: #d9d3c4;
-  font-size: 0.98rem;
+.mobile-panel-kicker { margin-bottom: 22px; }
+
+#mobile-links { counter-reset: mobile-link; }
+#mobile-links a {
+  counter-increment: mobile-link;
+  position: relative;
+  display: block;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.55rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  padding: 16px 26px 16px 0;
+  border-bottom: 1px solid rgba(201, 169, 98, 0.1);
+  opacity: 0;
+  transform: translateX(-14px);
 }
-.mobile-panel .btn { margin-top: 14px; }
-.mobile-panel.open { display: flex; }
+#mobile-links a::before {
+  content: counter(mobile-link, decimal-leading-zero);
+  display: block;
+  margin-bottom: 4px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--gold-bright);
+}
+#mobile-links a::after {
+  content: "";
+  position: absolute;
+  right: 4px; top: 50%;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--gradient-gold);
+  opacity: 0;
+  transform: translateY(-50%) scale(0.5);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+#mobile-links a:hover::after,
+#mobile-links a:focus-visible::after,
+#mobile-links a.active::after {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+#mobile-links a.active { color: var(--gold-bright); }
+
+.mobile-panel.open #mobile-links a { animation: mobile-link-in 0.45s ease forwards; }
+.mobile-panel.open #mobile-links a:nth-child(1) { animation-delay: 0.05s; }
+.mobile-panel.open #mobile-links a:nth-child(2) { animation-delay: 0.1s; }
+.mobile-panel.open #mobile-links a:nth-child(3) { animation-delay: 0.15s; }
+.mobile-panel.open #mobile-links a:nth-child(4) { animation-delay: 0.2s; }
+.mobile-panel.open #mobile-links a:nth-child(5) { animation-delay: 0.25s; }
+.mobile-panel.open #mobile-links a:nth-child(6) { animation-delay: 0.3s; }
+@keyframes mobile-link-in {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+#mobile-cta { margin-top: auto; padding-top: 28px; }
+#mobile-cta .btn { width: 100%; }
+.mobile-panel #mobile-cta .btn {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.mobile-panel.open #mobile-cta .btn {
+  animation: mobile-cta-in 0.4s ease forwards;
+  animation-delay: 0.34s;
+}
+@keyframes mobile-cta-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+body.mobile-nav-open { overflow: hidden; }
 
 @media (max-width: 940px) {
   .nav-links { display: none; }
@@ -814,6 +902,7 @@ html { scrollbar-color: var(--gold-dim) var(--obsidian-3); scrollbar-width: thin
 @media (max-width: 560px) {
   .container { width: min(100% - 24px, 1200px); }
   .nav-inner { height: 70px; }
+  .mobile-panel { top: 70px; }
   .stats-grid { grid-template-columns: 1fr; }
   .services-grid { grid-template-columns: 1fr; }
   .process-grid { grid-template-columns: 1fr; }
@@ -827,4 +916,9 @@ html { scrollbar-color: var(--gold-dim) var(--obsidian-3); scrollbar-width: thin
   .icon-chip, .icon-chip::after, .orbit-ring::before, .earth-lights, .star-dot, .package-card.featured::after, .cursor-orbit { animation: none; }
   html { scroll-behavior: auto; }
   .glass { transform: none !important; }
+  #mobile-links a, #mobile-cta .btn {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
