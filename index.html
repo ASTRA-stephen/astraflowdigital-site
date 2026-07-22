@@ -11,7 +11,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500;1,9..144,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- Scroll reveal animations -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
@@ -19,6 +19,15 @@
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+
+  <!-- Ambient texture + interactive layers -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="spotlight" id="spotlight" aria-hidden="true"></div>
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true">
+    <span class="cursor-orbit"><span class="cursor-moon"></span></span>
+  </div>
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
 
   <nav class="nav" id="site-nav">
     <div class="container nav-inner">
@@ -84,7 +93,6 @@
     <section id="services">
       <div class="container">
         <div class="section-head center">
-          <span class="kicker" id="services-kicker"></span>
           <h2 id="services-heading"></h2>
           <p id="services-paragraph"></p>
         </div>
@@ -92,18 +100,7 @@
       </div>
     </section>
 
-    <!-- Before / After comparison -->
-    <section id="comparison">
-      <div class="container">
-        <div class="section-head center">
-          <span class="kicker" id="comparison-kicker"></span>
-          <h2 id="comparison-heading"></h2>
-        </div>
-        <div class="comparison-grid" id="comparison-grid"></div>
-      </div>
-    </section>
-
-    <!-- Process -->
+    <!-- Process + real client comparison (one continuous section) -->
     <section id="process">
       <div class="container">
         <div class="section-head">
@@ -112,6 +109,15 @@
           <p id="process-paragraph"></p>
         </div>
         <div class="process-grid" id="process-grid"></div>
+      </div>
+
+      <div class="container comparison-block" id="comparison">
+        <div class="section-head center">
+          <span class="kicker" id="comparison-kicker"></span>
+          <h2 id="comparison-heading"></h2>
+          <p id="comparison-paragraph"></p>
+        </div>
+        <div class="comparison-grid" id="comparison-grid"></div>
       </div>
     </section>
 
@@ -145,16 +151,13 @@
 
   <footer>
     <div class="container footer-grid">
-      <div>
-        <div class="footer-brand">
-          <img src="afdLogo-ALogo-NoBG.png" alt="AstraFlow Digital logo" />
-          <span id="footer-brand-text">AstraFlow Digital</span>
-        </div>
-        <div class="footer-tagline" id="footer-tagline"></div>
+      <div class="footer-brand">
+        <img src="afdLogo-ALogo-NoBG.png" alt="AstraFlow Digital logo" />
+        <span id="footer-brand-text">AstraFlow Digital</span>
       </div>
       <div class="footer-links" id="footer-links"></div>
     </div>
-    <div class="container" style="margin-top:18px; font-size:.8rem; color:var(--muted-2);">
+    <div class="container" style="margin-top:10px; font-size:.8rem; color:var(--muted-2);">
       © <span id="year"></span> AstraFlow Digital. All rights reserved.
     </div>
   </footer>

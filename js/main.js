@@ -41,15 +41,37 @@ function renderHero(hero) {
 
   const chipLayer = document.getElementById("hero-chips");
   chipLayer.innerHTML = hero.chips
-    .map((c) => `<div class="icon-chip" style="left:${c.x}%; top:${c.y}%;">${icon(c.icon)}</div>`)
+    .map(
+      (c, i) => `
+      <button
+        type="button"
+        class="icon-chip"
+        style="left:${c.x}%; top:${c.y}%;"
+        data-chip-index="${i}"
+        data-icon="${c.icon}"
+        data-label="${c.label}"
+        data-detail="${c.detail}"
+        aria-expanded="false"
+        aria-label="${c.label}"
+      >${icon(c.icon)}</button>`
+    )
     .join("");
+  chipLayer.insertAdjacentHTML(
+    "afterend",
+    `<div class="chip-tooltip" id="chip-tooltip" role="tooltip">
+      <button type="button" class="chip-tooltip-close" id="chip-tooltip-close" aria-label="Close">${icon("x")}</button>
+      <div class="chip-tooltip-icon" id="chip-tooltip-icon"></div>
+      <strong id="chip-tooltip-label"></strong>
+      <p id="chip-tooltip-detail"></p>
+    </div>`
+  );
 
   drawConnectors(hero.chips);
   renderEarthLights(document.getElementById("earth-lights"));
 }
 
 function renderEarthLights(container, count = 70) {
-  const colors = ["255, 214, 130", "255, 180, 100", "255, 250, 235"];
+  const colors = ["232, 201, 122", "166, 133, 255", "245, 241, 232"];
   const dots = [];
   for (let i = 0; i < count; i++) {
     const angle = Math.random() * Math.PI * 2;
@@ -104,7 +126,6 @@ function renderStats(stats) {
 }
 
 function renderServices(services) {
-  document.getElementById("services-kicker").textContent = services.kicker;
   document.getElementById("services-heading").textContent = services.heading;
   document.getElementById("services-paragraph").textContent = services.paragraph;
   document.getElementById("services-grid").innerHTML = services.items
@@ -114,6 +135,9 @@ function renderServices(services) {
         <div class="icon">${icon(s.icon)}</div>
         <h3>${s.title}</h3>
         <p>${s.detail}</p>
+        <ul>
+          ${s.bullets.map((b) => `<li>${icon("check")}${b}</li>`).join("")}
+        </ul>
       </article>`
     )
     .join("");
@@ -122,6 +146,7 @@ function renderServices(services) {
 function renderComparison(comparison) {
   document.getElementById("comparison-kicker").textContent = comparison.kicker;
   document.getElementById("comparison-heading").textContent = comparison.heading;
+  document.getElementById("comparison-paragraph").textContent = comparison.paragraph;
 
   const buildCol = (col, cls) => `
     <div class="glass comparison-col ${cls}" data-aos="fade-up">
@@ -191,7 +216,6 @@ function renderCta(cta) {
 }
 
 function renderFooter(footer) {
-  document.getElementById("footer-tagline").textContent = footer.tagline;
   document.getElementById("footer-links").innerHTML = footer.links
     .map((l) => `<a href="${l.href}">${l.label}</a>`)
     .join("");
@@ -202,6 +226,15 @@ function wireNav() {
   const nav = document.getElementById("site-nav");
   const toggle = document.getElementById("nav-toggle");
   const mobilePanel = document.getElementById("mobile-panel");
+  const brand = document.querySelector(".brand");
+
+  if (brand) {
+    brand.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      history.replaceState(null, "", "#home");
+    });
+  }
 
   window.addEventListener(
     "scroll",
@@ -246,6 +279,293 @@ function wireActiveLinkHighlight() {
   sections.forEach((s) => observer.observe(s));
 }
 
+/* ==========================================================================
+   Interactive layer — custom cursor, spotlight, tilt, magnetic buttons,
+   scroll progress, kicker decode-in. All skip on touch / reduced-motion.
+   ========================================================================== */
+
+const fineHover = () => window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function wireCursor() {
+  if (!fineHover()) return;
+  const dot = document.getElementById("cursor-dot");
+  const ring = document.getElementById("cursor-ring");
+  if (!dot || !ring) return;
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let ringX = mouseX;
+  let ringY = mouseY;
+
+  window.addEventListener(
+    "mousemove",
+    (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+      dot.classList.add("active");
+      ring.classList.add("active");
+    },
+    { passive: true }
+  );
+
+  document.addEventListener("mouseleave", () => {
+    dot.classList.remove("active");
+    ring.classList.remove("active");
+  });
+
+  document.addEventListener("mouseover", (e) => {
+    if (e.target.closest("a, button, .glass")) ring.classList.add("hover");
+  });
+  document.addEventListener("mouseout", (e) => {
+    if (e.target.closest("a, button, .glass")) ring.classList.remove("hover");
+  });
+
+  (function raf() {
+    ringX += (mouseX - ringX) * 0.18;
+    ringY += (mouseY - ringY) * 0.18;
+    ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+    requestAnimationFrame(raf);
+  })();
+}
+
+function wireSpotlight() {
+  const spotlight = document.getElementById("spotlight");
+  if (!spotlight || !fineHover()) return;
+
+  let pending = false;
+  let lastX = 0;
+  let lastY = 0;
+
+  window.addEventListener(
+    "mousemove",
+    (e) => {
+      lastX = e.clientX;
+      lastY = e.clientY;
+      spotlight.classList.add("active");
+      if (pending) return;
+      pending = true;
+      requestAnimationFrame(() => {
+        document.documentElement.style.setProperty("--mx", `${lastX}px`);
+        document.documentElement.style.setProperty("--my", `${lastY}px`);
+        pending = false;
+      });
+    },
+    { passive: true }
+  );
+}
+
+function wireScrollProgress() {
+  const bar = document.getElementById("scroll-progress");
+  if (!bar) return;
+  function update() {
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+    bar.style.width = `${pct}%`;
+  }
+  window.addEventListener("scroll", update, { passive: true });
+  update();
+}
+
+function wireTilt() {
+  if (!fineHover() || reducedMotion()) return;
+
+  document.addEventListener(
+    "mousemove",
+    (e) => {
+      const card = e.target.closest(".glass");
+      if (!card) return;
+      const rect = card.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width;
+      const py = (e.clientY - rect.top) / rect.height;
+      const rotateX = (0.5 - py) * 8;
+      const rotateY = (px - 0.5) * 8;
+      card.style.transform = `translateY(-4px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      card.style.setProperty("--gx", `${px * 100}%`);
+      card.style.setProperty("--gy", `${py * 100}%`);
+    },
+    { passive: true }
+  );
+
+  document.addEventListener("mouseout", (e) => {
+    const card = e.target.closest(".glass");
+    if (!card || card.contains(e.relatedTarget)) return;
+    card.style.transform = "";
+  });
+}
+
+function wireMagneticButtons() {
+  if (!fineHover() || reducedMotion()) return;
+
+  document.addEventListener(
+    "mousemove",
+    (e) => {
+      const btn = e.target.closest(".btn");
+      if (!btn) return;
+      const rect = btn.getBoundingClientRect();
+      const relX = e.clientX - (rect.left + rect.width / 2);
+      const relY = e.clientY - (rect.top + rect.height / 2);
+      btn.style.transform = `translate(${relX * 0.22}px, ${relY * 0.32}px)`;
+    },
+    { passive: true }
+  );
+
+  document.addEventListener("mouseout", (e) => {
+    const btn = e.target.closest(".btn");
+    if (!btn || btn.contains(e.relatedTarget)) return;
+    btn.style.transform = "";
+  });
+}
+
+const SCRAMBLE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+function scrambleReveal(el) {
+  const final = el.textContent;
+  const len = final.length;
+  const totalFrames = Math.min(24, len * 3);
+  const revealEvery = totalFrames / len;
+  let frame = 0;
+
+  function tick() {
+    let out = "";
+    for (let i = 0; i < len; i++) {
+      if (final[i] === " " || frame / revealEvery > i) {
+        out += final[i];
+      } else {
+        out += SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+      }
+    }
+    el.textContent = out;
+    frame++;
+    if (frame <= totalFrames) requestAnimationFrame(tick);
+    else el.textContent = final;
+  }
+  tick();
+}
+
+function wireChipTooltips() {
+  const chipLayer = document.getElementById("hero-chips");
+  const tooltip = document.getElementById("chip-tooltip");
+  if (!chipLayer || !tooltip) return;
+
+  const closeBtn = document.getElementById("chip-tooltip-close");
+  const iconEl = document.getElementById("chip-tooltip-icon");
+  const labelEl = document.getElementById("chip-tooltip-label");
+  const detailEl = document.getElementById("chip-tooltip-detail");
+  let activeChip = null;
+  let leaveTimer = null;
+
+  function cancelLeaveTimer() {
+    clearTimeout(leaveTimer);
+    leaveTimer = null;
+  }
+
+  function scheduleClose() {
+    cancelLeaveTimer();
+    leaveTimer = setTimeout(closeTooltip, 220);
+  }
+
+  function closeTooltip() {
+    cancelLeaveTimer();
+    tooltip.classList.remove("open");
+    if (activeChip) {
+      activeChip.classList.remove("active");
+      activeChip.setAttribute("aria-expanded", "false");
+    }
+    activeChip = null;
+  }
+
+  function openTooltip(chip) {
+    if (activeChip === chip) {
+      closeTooltip();
+      return;
+    }
+    if (activeChip) {
+      activeChip.classList.remove("active");
+      activeChip.setAttribute("aria-expanded", "false");
+    }
+    activeChip = chip;
+    chip.classList.add("active");
+    chip.setAttribute("aria-expanded", "true");
+
+    iconEl.innerHTML = icon(chip.dataset.icon);
+    labelEl.textContent = chip.dataset.label;
+    detailEl.textContent = chip.dataset.detail;
+    if (window.lucide) lucide.createIcons();
+
+    const x = parseFloat(chip.style.left);
+    const y = parseFloat(chip.style.top);
+    const anchorRight = x < 50;
+    tooltip.classList.toggle("anchor-right", anchorRight);
+    tooltip.classList.toggle("anchor-left", !anchorRight);
+    tooltip.style.top = `${y}%`;
+    if (anchorRight) {
+      tooltip.style.left = `calc(${x}% + 46px)`;
+      tooltip.style.right = "auto";
+    } else {
+      tooltip.style.right = `calc(${100 - x}% + 46px)`;
+      tooltip.style.left = "auto";
+    }
+    tooltip.classList.add("open");
+  }
+
+  chipLayer.addEventListener("click", (e) => {
+    const chip = e.target.closest(".icon-chip");
+    if (!chip) return;
+    openTooltip(chip);
+  });
+
+  if (closeBtn) closeBtn.addEventListener("click", closeTooltip);
+
+  // Auto-close once the mouse leaves both the chip and the card, with a
+  // short grace period so crossing the gap between them (chip -> card)
+  // doesn't cause a flicker-close.
+  const isInActiveArea = (el) => !!el && !!el.closest && (el.closest(".icon-chip") || el.closest(".chip-tooltip"));
+
+  chipLayer.addEventListener("mouseover", (e) => {
+    if (e.target.closest(".icon-chip")) cancelLeaveTimer();
+  });
+  chipLayer.addEventListener("mouseout", (e) => {
+    if (!activeChip || !e.target.closest(".icon-chip")) return;
+    if (isInActiveArea(e.relatedTarget)) return;
+    scheduleClose();
+  });
+  tooltip.addEventListener("mouseover", cancelLeaveTimer);
+  tooltip.addEventListener("mouseout", (e) => {
+    if (!activeChip) return;
+    if (isInActiveArea(e.relatedTarget)) return;
+    scheduleClose();
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!activeChip) return;
+    if (e.target.closest(".icon-chip") || e.target.closest(".chip-tooltip")) return;
+    closeTooltip();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeTooltip();
+  });
+}
+
+function wireKickerDecode() {
+  if (reducedMotion()) return;
+  const seen = new WeakSet();
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !seen.has(entry.target)) {
+          seen.add(entry.target);
+          scrambleReveal(entry.target);
+        }
+      });
+    },
+    { threshold: 0.4 }
+  );
+  document.querySelectorAll(".kicker").forEach((k) => observer.observe(k));
+}
+
 async function init() {
   try {
     const content = await loadContent();
@@ -275,6 +595,13 @@ async function init() {
 
   wireNav();
   wireActiveLinkHighlight();
+  wireCursor();
+  wireSpotlight();
+  wireScrollProgress();
+  wireTilt();
+  wireMagneticButtons();
+  wireKickerDecode();
+  wireChipTooltips();
 
   if (window.lucide) lucide.createIcons();
   if (window.AOS) AOS.init({ duration: 700, once: true, offset: 60, easing: "ease-out-cubic" });

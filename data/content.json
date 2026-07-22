@@ -3,9 +3,9 @@
     "brand": "AstraFlow",
     "brandAccent": "Digital",
     "links": [
-      { "label": "Services", "href": "#services" },
+      { "label": "What We Build", "href": "#services" },
       { "label": "Why Us", "href": "#why-us" },
-      { "label": "Process", "href": "#process" },
+      { "label": "The Process", "href": "#process" },
       { "label": "Packages", "href": "#packages" },
       { "label": "Contact", "href": "#contact" }
     ]
@@ -16,7 +16,7 @@
       { "text": "Integrate." },
       { "text": "Innovate.", "gradient": true }
     ],
-    "paragraph": "Stop doing everything manually. AstraFlow Digital builds secure cloud environments, connected workflows, and scalable digital systems so your team can focus on growing the business.",
+    "paragraph": "Modern, secure, scalable technology — sized and priced for small business, not big enterprise. AstraFlow Digital builds cloud environments, connected workflows, and digital systems that grow with you — complete, future-proof solutions built for where your business is today.",
     "actions": [
       { "label": "Explore Packages", "href": "#packages", "style": "primary" },
       { "label": "View Solutions", "href": "#services", "style": "secondary" }
@@ -27,11 +27,11 @@
       { "title": "Built to Scale", "detail": "Systems that grow with you" }
     ],
     "chips": [
-      { "icon": "cloud", "x": 10, "y": 8 },
-      { "icon": "git-branch", "x": 4, "y": 27 },
-      { "icon": "mail", "x": 6, "y": 47 },
-      { "icon": "file-text", "x": 4, "y": 67 },
-      { "icon": "bar-chart-3", "x": 10, "y": 86 }
+      { "icon": "cloud", "x": 10, "y": 8, "label": "Cloud Infrastructure", "detail": "Secure, scalable Azure environments built around your business." },
+      { "icon": "git-branch", "x": 4, "y": 27, "label": "Workflow Automation", "detail": "Automated approvals, routing, and integrations that eliminate busywork." },
+      { "icon": "mail", "x": 6, "y": 47, "label": "Smart Notifications", "detail": "The right messages reach the right people, automatically." },
+      { "icon": "file-text", "x": 4, "y": 67, "label": "Document Systems", "detail": "Centralized, secure file management across your organization." },
+      { "icon": "code-2", "x": 10, "y": 86, "label": "Web & Software", "detail": "Modern websites, client portals, and custom integrations." }
     ]
   },
   "stats": {
@@ -46,37 +46,67 @@
     ]
   },
   "services": {
-    "kicker": "What we build",
     "heading": "One connected digital ecosystem",
     "paragraph": "From your Microsoft 365 foundation to custom automation and business applications, every solution is designed to work together.",
     "items": [
-      { "icon": "workflow", "title": "Workflow Automation", "detail": "Eliminate repetitive tasks, approvals, and file routing to save hours every week." },
-      { "icon": "layout-grid", "title": "Microsoft 365", "detail": "Maximize collaboration, productivity, and efficiency across your whole team." },
-      { "icon": "cloud", "title": "Cloud Solutions", "detail": "Secure, scalable Azure infrastructure built around your business." },
-      { "icon": "brain-circuit", "title": "AI-Powered Solutions", "detail": "Smart automation and insights that help you make better decisions." },
-      { "icon": "code-2", "title": "Web & Software", "detail": "Modern websites, client portals, dashboards, and custom API integrations." },
-      { "icon": "shield-check", "title": "Secure & Reliable", "detail": "Enterprise-grade security and permissions you can trust." }
+      {
+        "icon": "workflow",
+        "title": "Workflow Automation",
+        "detail": "Eliminate repetitive tasks, approvals, and file routing to save hours every week.",
+        "bullets": ["Approval routing & sign-off chains", "Automated document generation & filing", "Trigger-based emails & alerts"]
+      },
+      {
+        "icon": "layout-grid",
+        "title": "Microsoft 365",
+        "detail": "Maximize collaboration, productivity, and efficiency across your whole team.",
+        "bullets": ["Teams, SharePoint & Outlook setup", "Permissions & security groups configured right", "Migration from legacy email & file systems"]
+      },
+      {
+        "icon": "cloud",
+        "title": "Cloud Solutions",
+        "detail": "Secure, scalable Azure infrastructure built around your business.",
+        "bullets": ["Secure Azure infrastructure, built to scale", "Automated backups & disaster recovery", "Cost-optimized architecture, not overbuilt"]
+      },
+      {
+        "icon": "brain-circuit",
+        "title": "AI-Powered Solutions",
+        "detail": "Smart automation and insights that help you make better decisions.",
+        "bullets": ["Smart document processing & data extraction", "AI-assisted workflows and decision support", "Custom copilots trained on your business"]
+      },
+      {
+        "icon": "code-2",
+        "title": "Web & Software",
+        "detail": "Modern websites, client portals, dashboards, and custom API integrations.",
+        "bullets": ["Modern websites & client portals", "Custom dashboards & internal tools", "API integrations that connect your systems"]
+      },
+      {
+        "icon": "shield-check",
+        "title": "Secure & Reliable",
+        "detail": "Enterprise-grade security and permissions you can trust.",
+        "bullets": ["Role-based access & permission audits", "Enterprise-grade security controls", "Ongoing monitoring & support"]
+      }
     ]
   },
   "comparison": {
-    "kicker": "Before & after",
-    "heading": "We automate. You elevate.",
+    "kicker": "Real client, real results",
+    "heading": "One client's shift from manual to fully automated",
+    "paragraph": "A real project we built end-to-end: appointments used to require a phone call and hand-entered paperwork just to get started. Now it's entirely self-service, synced automatically, and open around the clock.",
     "before": {
       "label": "Before AstraFlow",
       "items": [
-        { "icon": "layers", "title": "Manual Paperwork", "detail": "Time-consuming tasks and endless data entry." },
-        { "icon": "mail-warning", "title": "Missed Emails", "detail": "Important messages get lost or overlooked." },
-        { "icon": "repeat", "title": "Repetitive Tasks", "detail": "Wasting hours on work that could be automated." },
-        { "icon": "folder-x", "title": "Disorganized Files", "detail": "Scattered documents slow down your team." }
+        { "icon": "phone-call", "title": "Phone-Only Scheduling", "detail": "Every appointment had to be booked by calling the office during business hours." },
+        { "icon": "keyboard", "title": "Manual Data Entry", "detail": "Staff re-typed every new customer's information into the system by hand." },
+        { "icon": "users", "title": "Duplicate Records", "detail": "With no automated check in place, the same customer could get entered twice." },
+        { "icon": "clock", "title": "Registration Delays", "detail": "New customers waited on hold just to start their paperwork." }
       ]
     },
     "after": {
       "label": "After AstraFlow",
       "items": [
-        { "icon": "workflow", "title": "Automated Workflows", "detail": "Save time and eliminate manual, repetitive work." },
-        { "icon": "bell-ring", "title": "Smart Notifications", "detail": "The right messages reach the right people." },
-        { "icon": "zap", "title": "Increased Productivity", "detail": "Your team focuses on what really drives the business." },
-        { "icon": "shield-check", "title": "Centralized & Secure", "detail": "All your files organized, accessible, and protected." }
+        { "icon": "laptop", "title": "24/7 Online Registration", "detail": "Customers register and request appointments anytime, from any device — no phone tag required." },
+        { "icon": "refresh-cw", "title": "Automatic Record Sync", "detail": "New customer records are created and matched in the system the moment registration is submitted." },
+        { "icon": "shield-check", "title": "Built-In Duplicate Checking", "detail": "An automated check catches existing customers before a duplicate record can ever be created." },
+        { "icon": "cloud", "title": "Instant, Secure Intake", "detail": "New customers complete registration and securely upload documents online — no more waiting on hold." }
       ]
     }
   },
@@ -140,11 +170,8 @@
     ]
   },
   "footer": {
-    "tagline": "Let's automate your success.",
     "links": [
-      { "label": "info@astraflowdigital.com", "href": "mailto:info@astraflowdigital.com" },
-      { "label": "Solutions", "href": "#services" },
-      { "label": "Packages", "href": "#packages" }
+      { "label": "info@astraflowdigital.com", "href": "mailto:info@astraflowdigital.com" }
     ]
   }
 }
